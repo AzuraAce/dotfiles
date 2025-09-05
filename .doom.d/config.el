@@ -52,7 +52,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font "Iosevka:pixelsize=34:antialias=true"
+(setq doom-font "Iosevka Fixed:size=14:antialias=true"
       doom-variable-pitch-font (font-spec :family "SF Pro Text")
       doom-symbol-font (font-spec :family "Hack Nerd Font Mono")
       doom-unicode-font (font-spec :family "DejaVu Sans Mono")
@@ -67,7 +67,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-(load-theme 'gruber-darker t)
+
+(setq doom-theme 'gruber-darker)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
