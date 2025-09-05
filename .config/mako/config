@@ -3,7 +3,7 @@ font=SF Mono 11
 border-color=#54487a
 background-color=#222222
 text-color=#888888
-default-timeout=10
+default-timeout=1000
 
 [urgency=critical]
 background-color=#900000
