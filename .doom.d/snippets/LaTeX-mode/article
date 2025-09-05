@@ -1,0 +1,35 @@
+# -*- mode: snippet -*-
+# name: Article template
+# key: article
+# uuid: article
+# --
+% LTeX: SETTINGS
+\documentclass[a4paper]{article}
+\usepackage[english,ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{hyperref} % clickable toc
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{enumitem}
+
+% Font
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+% Switch default font family to sans serif (Latin Modern Sans)
+\renewcommand{\familydefault}{\sfdefault}
+
+% make equations blue
+\everymath{\color{blue}}
+
+\title{$1}
+\author{$2}
+\date{`(format-time-string "%Y-%m-%d")`}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+
+	$0
+\end{document}

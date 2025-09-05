@@ -1,0 +1,9 @@
+[submodule ".config/dwl"]
+	path = .config/dwl
+	url = git@github.com:AzuraAce/dwl.git
+[submodule ".config/slstatus"]
+	path = .config/slstatus
+	url = git@github.com:AzuraAce/slstatus.git
+[submodule ".config/mew"]
+	path = .config/mew
+	url = git@github.com:AzuraAce/mew.git
