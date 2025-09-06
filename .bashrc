@@ -18,25 +18,13 @@ fi
 # Put your fun stuff here.
 eval "$(fzf --bash)"
 
-# if [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/ble.sh/out/ble.sh ]]; then
-#   source ${XDG_CONFIG_HOME:-$HOME/.config}/ble.sh/out/ble.sh --noattach
-# else
-#   echo -e "Missing ${XDG_CONFIG_HOME:-$HOME/.config}/ble.sh/out/ble.sh"
-#   echo -e "ble.sh not installed"
-#   echo -e "Install ble.sh from https://github.com/akinomyoga/ble.sh\n"
-# fi
-
 PURPLE="\[$(tput setaf 5)\]"
 RESET="\[$(tput sgr0)\]"
 PS1="┌─[${PURPLE} \u@\h \w${RESET}]\n└─\$ "
 
 # Completions
 . /usr/share/bash-completion/bash_completion
-#     Complete arguments as if they were commands
-#     (eg: `doas emer<tab>` -> `doas emerge`)
-#     (eg: `doas dd status=p<tab>` -> `doas dd status=progress`)
-#    Complete arguments as if they were directory names (default behavior)
-#     (eg: `doas /bi<tab>` -> `doas /bin/`)
+# enable completion if using doas instead of sudo
 complete -F _root_command doas
 
 # History
@@ -68,5 +56,3 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
-
-[[ ! ${BLE_VERSION-} ]] || ble-attach
