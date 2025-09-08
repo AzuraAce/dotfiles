@@ -16,12 +16,14 @@ get_icon () {
 case "$1" in
   up)
     wpctl set-volume @DEFAULT_AUDIO_SINK@ ${STEP}%+
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
     volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ \
                | awk '{print int($2*100)}')
     icon=$(get_icon $volume)
     ;;
   down)
     wpctl set-volume @DEFAULT_AUDIO_SINK@ ${STEP}%-
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
     volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ \
                | awk '{print int($2*100)}')
     icon=$(get_icon $volume)
