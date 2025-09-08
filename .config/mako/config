@@ -1,12 +1,25 @@
 font=SF Mono 11
 
+icons=1
+icon-path=/usr/share/icons/WhiteSur
+
+layer=overlay
+anchor=top-right
+
 border-color=#54487a
 background-color=#222222
-text-color=#888888
 default-timeout=1000
+progress-color=source #3b4d7e
 
 [urgency=critical]
 background-color=#900000
-text-color=#888888
 
-#icon-path="~/.local/share/icons/WhiteSur-dark"
+[app-name="volume"]
+anchor=center
+icon-location=top
+text-alignment=center
+
+[app-name="brightness"]
+anchor=center
+icon-location=top
+text-alignment=center
