@@ -1,23 +1,34 @@
 #!/bin/sh
 
-# Set increment step (e.g., 5%)
+APP_NAME="brightness"
 STEP=5
 
-# Direction: "up" or "down"
-DIRECTION="$1"
+get_icon () {
+  if [ $1 -lt 50 ]; then
+    echo "brightness-low"
+  else
+    echo "brightness-high"
+  fi
+}
 
-# Change brightness
-if [ "$DIRECTION" = "up" ]; then
-    light -A "${STEP}%"
-elif [ "$DIRECTION" = "down" ]; then
-    light -U "${STEP}%-"
-else
-    echo "Usage: $0 [up|down]"
-    exit 1
-fi
+case "$1" in
+    up)
+        light -A "${STEP}%"
+        ;;
+    down)
+        light -U "${STEP}%"
+        ;;
+    *)
+        echo "Usage: $0 [up|down]"
+        exit 1
+        ;;
+esac
 
-# Get current and max brightness
-current=$(light -G)
+brightness=$(printf "%.0f" "$(light -G)")
+icon=$(get_icon $brightness)
 
-# Send notification with progress bar via mako (notify-send)
-notify-send -u low -h string:x-canonical-private-synchronous:volume -h int:value:$current ""
+notify-send -a "$APP_NAME" \
+            -h string:x-canonical-private-synchronous:brightness \
+            -h int:value:"$brightness" \
+            -i "$icon" \
+            ""
