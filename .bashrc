@@ -47,7 +47,7 @@ alias md2tex="pandoc -f markdown -t latex"
 alias tex2md="pandoc -f latex -t markdown"
 alias tex2pdf="latexmk -pdf && latexmk -c"
 alias make.conf="sudo $EDITOR /etc/portage/make.conf"
-alias update="sudo emerge -avuDU @world && echo -e '\e[1;31mremoving unused dependencies \e[0m' && sudo emerge -avc"
+alias update="sudo emerge -avuDN @world && echo -e '\e[1;31mremoving unused dependencies \e[0m' && sudo emerge -avc"
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
 # Preferred editor for local and remote sessions
