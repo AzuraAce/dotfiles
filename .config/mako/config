@@ -8,18 +8,21 @@ anchor=top-right
 
 border-color=#54487a
 background-color=#222222
-default-timeout=1000
+default-timeout=3000
 progress-color=source #3b4d7e
 
 [urgency=critical]
 background-color=#900000
+default-timeout=0
 
 [app-name="volume"]
 anchor=center
 icon-location=top
 text-alignment=center
+default-timeout=1000
 
 [app-name="brightness"]
 anchor=center
 icon-location=top
 text-alignment=center
+default-timeout=1000
