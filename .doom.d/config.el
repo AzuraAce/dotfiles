@@ -52,7 +52,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font "SF Mono:size=14:antialias=true"
+(setq doom-font "Iosevka Fixed:size=15:antialias=true"
       doom-variable-pitch-font (font-spec :family "SF Pro Text")
       doom-symbol-font (font-spec :family "Hack Nerd Font Mono")
       doom-unicode-font (font-spec :family "DejaVu Sans Mono")
@@ -105,6 +105,13 @@
      (keyboard-quit))
   (map! :i "C-l" #'my/flyspell-auto-correct-first))
 (setq +latex-viewers '(pdf-tools))
+
+;; Enable xterm mouse mode
+(xterm-mouse-mode 1)
+
+;; Foot doesnt use mouse-4 / mouse-5
+(global-set-key [wheel-up] (lambda () (interactive) (scroll-down 3)))
+(global-set-key [wheel-down] (lambda () (interactive) (scroll-up 3)))
 
 (setq confirm-kill-emacs nil)
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
