@@ -52,7 +52,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font "Iosevka Fixed:size=15:antialias=true"
+(setq doom-font "SF Mono:size=11:antialias=true"
       doom-variable-pitch-font (font-spec :family "SF Pro Text")
       doom-symbol-font (font-spec :family "Hack Nerd Font Mono")
       doom-unicode-font (font-spec :family "DejaVu Sans Mono")
@@ -68,7 +68,7 @@
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
 
-(setq doom-theme 'gruber-darker)
+(setq doom-theme 'doom-tokyo-night)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -106,9 +106,8 @@
   (map! :i "C-l" #'my/flyspell-auto-correct-first))
 (setq +latex-viewers '(pdf-tools))
 
-;; Enable xterm mouse mode
+;; Scroll Buffer instead of line
 (xterm-mouse-mode 1)
-
 ;; Foot doesnt use mouse-4 / mouse-5
 (global-set-key [wheel-up] (lambda () (interactive) (scroll-down 3)))
 (global-set-key [wheel-down] (lambda () (interactive) (scroll-up 3)))
