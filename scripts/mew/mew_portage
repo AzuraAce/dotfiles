@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+FOLDER=/etc/portage/
+
+new () { \
+  name="$(echo "" | mew -sb "#a3be8c" -nf "#d8dee9" -p "Enter a name: " <&-)" || exit 0
+  setsid -f "$TERMINAL" -e "$EDITOR" $FOLDER$name >/dev/null 2>&1
+}
+
+selected () { \
+  choice=$(echo -e "New\n$(command ls -t1 $FOLDER)" | mew -l 5 -i -p "Choose note or create new: ")
+  [ -z "$choice" ] && exit
+  case $choice in
+    New) new ;;
+    *) setsid -f "$TERMINAL" -e "$EDITOR" "$FOLDER$choice" >/dev/null 2>&1 ;;
+  esac
+}
+
+case "$(printf "make.conf\nuse\naccept_keywords" | mew -i -l 4)" in
+  make.conf) setsid -f "$TERMINAL" -e "$EDITOR" $FOLDER"make.conf" >/dev/null 2>&1 && exit ;;
+  use) FOLDER+="package.use/" ;;
+  accept_keywords) FOLDER+="package.accept_keywords/" ;;
+  *) exit ;;
+esac
+
+selected
