@@ -16,11 +16,16 @@ fi
 
 
 # Put your fun stuff here.
+. ~/.profile
 eval "$(fzf --bash)"
 
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1="\w \$(parse_git_branch) $ "
 PURPLE="\[$(tput setaf 5)\]"
 RESET="\[$(tput sgr0)\]"
-PS1="┌─[${PURPLE} \u@\h \w${RESET}]\n└─\$ "
+PS1="┌─[${PURPLE} \u@\h \w \$(parse_git_branch)${RESET}]\n└─\$ "
 
 # Completions
 . /usr/share/bash-completion/bash_completion
@@ -40,7 +45,12 @@ alias ff="fastfetch"
 alias ll="ls -lah --color"
 alias ls="ls --color"
 alias za="zathura"
-alias ytdlm="yt-dlp --extract-audio --audio-format mp3"
+alias ytdlm="yt-dlp -x --audio-format mp3 \
+--embed-metadata \
+--embed-thumbnail \
+--add-metadata \
+--output '%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s' \
+--parse-metadata 'channel:%(artist)s' "
 alias syncthinggui="xdg-open https://127.0.0.1:8384"
 alias mpvyt="noglob mpv --no-resume-playback"
 alias md2tex="pandoc -f markdown -t latex"

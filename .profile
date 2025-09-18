@@ -1,5 +1,5 @@
 # Default programs:
-export EDITOR="vim"
+export EDITOR="emacs"
 export TERMINAL="foot"
 export TERMINAL_PROG="foot"
 export TERM="foot"
@@ -9,7 +9,7 @@ export TERM="foot"
 # xdg-settings set default-web-browser <browser>.desktop
 #
 # .desktop files can be found in /usr/share/applications/
-export BROWSER="librewolf"
+export BROWSER="qutebrowser"
 
 export PATH="$PATH:~/.npm_install/bin:/home/oliver/.cargo/bin:~/.emacs.d/bin"
 export XDG_CONFIG_HOME="$HOME/.config"
