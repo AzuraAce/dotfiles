@@ -3,8 +3,9 @@
 gentoo-pipewire-launcher &
 easyeffects --gapplication-service &
 # gammastep &
-swaybg --output '*' --mode fill --image ~/wallpapers/macOS-Sierra-Wallpaper-Macbook-Wallpaper.jpg & 
+swaybg --output '*' --mode fill --image ~/wallpapers/pokemon_windows_7.jpg & 
 mako &
 foot --server &
+swayidle -w lock 'swaylock' &
 
 exec dbus-update-environment WAYLAND_DISPLAY
