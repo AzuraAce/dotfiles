@@ -46,11 +46,16 @@ alias ll="ls -lah --color"
 alias ls="ls --color"
 alias za="zathura"
 alias ytdlm="yt-dlp -x --audio-format mp3 \
---embed-metadata \
---embed-thumbnail \
---add-metadata \
---output '%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s' \
---parse-metadata 'channel:%(artist)s' "
+    --embed-metadata \ 
+    --embed-thumbnail \
+    --add-metadata \
+    --parse-metadata 'title:%(artist)s - %(title)s' \
+    --output '%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s' \
+    --sleep-interval 10 \
+    --max-sleep-interval 20 \
+    --retries 10 \
+    --fragment-retries 10 \
+    --abort-on-unavailable-fragment "
 alias syncthinggui="xdg-open https://127.0.0.1:8384"
 alias mpvyt="noglob mpv --no-resume-playback"
 alias md2tex="pandoc -f markdown -t latex"
