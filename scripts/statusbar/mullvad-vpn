@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+menucmd="dmenu -i"
+fullinfo="$(mullvad relay list | grep -E "[a-zA-Z ,]* \([a-z]*\)")"
+countries="$(echo "$fullinfo" | grep -Eo "^[A-Za-z ]+ \([a-z]+\)")"
+
+choiceOne=$(printf "connect\ndisconnect" | dmenu -i -p "MullvadVPN")
+
+case $choiceOne in
+	connect)
+        CountryChoice="$(echo "$countries" | $menucmd -p "Select Country: ")"
+        countrykey="$(echo "$CountryChoice" | grep -Eo "\([a-z]+\)" | tr -d '()')"
+
+        # Extract cities by matching country code
+        cities="$(awk -v code="$countrykey" '
+            $0 ~ "\\(" code "\\)" {flag=1; next}
+            /^[A-Za-z ]+ \([a-z]+\)/ && flag {flag=0}
+            flag
+        ' <<< "$fullinfo" | grep -Eo "^[[:space:]]*[A-Za-zäöü ,]+ \([a-z]+\)" | sed 's/^[ \t]*//')"
+
+        cityChoice="$(echo "$cities" | $menucmd -p "Select City: ")"
+        citykey="$(echo "$cityChoice" | grep -Eo "\([a-z]+\)" | tr -d '()')"
+
+        servers="$(awk -v city="$citykey" '
+            $0 ~ "\\(" city "\\)" {flag=1; next}
+            /^[A-Za-z ]+ \([a-z]+\)/ && flag {flag=0}
+            flag
+        ' <<< "$fullinfo" | grep -Eo "[a-z-]+-[a-z]+-[0-9]{3}" )"
+
+        if [ -n "$servers" ]; then
+            serverChoice="$(echo "$servers" | $menucmd -p "Select Server: ")"
+            echo "Selected server: $serverChoice"
+            mullvad relay set location "$countrykey" "$citykey" "$serverChoice"
+        else
+            mullvad relay set location "$countrykey" "$citykey"
+        fi
+
+        mullvad connect;;
+	disconnect)
+		mullvad disconnect;;
+esac

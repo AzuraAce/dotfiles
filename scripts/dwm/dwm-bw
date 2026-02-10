@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# this dmenu script relies on bitwarden-cli
+# make sure to install first
+unlock_bw() {
+    PROMPT="Bitwarden master password"
+    while true; do
+        MASTERPW=$(dmenu -P -p "$PROMPT" < /dev/null)
+        [ -z "$MASTERPW" ] && exit 1   # user cancelled
+
+        SESSION=$(bw unlock "$MASTERPW" --raw 2>/dev/null)
+        if [ -n "$SESSION" ]; then
+            printf '%s' "$SESSION" > ~/.cache/bw_session
+            break
+        fi
+
+        PROMPT="Unlock failed — try again"
+    done
+}
+
+[ -f ~/.cache/bw_session ] && TOKEN=$(cat ~/.cache/bw_session)
+if [ -z "$TOKEN" ]; then
+    unlock_bw
+    TOKEN=$(cat ~/.cache/bw_session)
+fi
+
+ITEMS=$(bw list items --session "$TOKEN")
+[ -z "$ITEMS" ] && exit 1
+
+# Extract names for dmenu
+# CHOICE=$(echo "$ITEMS" | jq -r '.[].name' | dmenu -i -p "Bitwarden")
+# [ -z "$CHOICE" ] && exit 0
+CHOICE=$(echo "$ITEMS" \
+    | jq -r '.[] | "\(.name) - \(.login.username // "")"' \
+    | dmenu -i -p "Bitwarden")
+[ -z "$CHOICE" ] && exit 0
+
+# Get full object for selected item
+# ITEM=$(echo "$ITEMS" | jq -r ".[] | select(.name==\"$CHOICE\")")
+NAME=$(printf '%s' "$CHOICE" | cut -d '-' -f1 | sed 's/[[:space:]]*$//')
+ITEM=$(echo "$ITEMS" | jq -r ".[] | select(.name == \"$NAME\")")
+
+USERNAME=$(echo "$ITEM" | jq -r '.login.username // empty')
+PASSWORD=$(echo "$ITEM" | jq -r '.login.password // empty')
+
+# Use dmenu to choose what to copy
+FIELD=$(printf "username\npassword" | dmenu -i -p "$CHOICE")
+case "$FIELD" in
+  username) printf "%s" "$USERNAME" | xclip -selection clipboard -i ;;
+  password) printf "%s" "$PASSWORD" | xclip -selection clipboard -i ;;
+esac

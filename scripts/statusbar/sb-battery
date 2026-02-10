@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+case "$BLOCK_BUTTON" in
+    1) notify-send -u low $(echo $(acpi -b | awk -F', ' '{print $3}'));;
+    4) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+battery_status=$(acpi -b | awk -F', ' '{print $1}' | sed 's/Battery [0-9]*: //')
+case "$battery_status" in
+    Discharging) battery_status="-" ;;
+    Charging) battery_status="+" ;;
+    *) battery_status="" ;;
+esac
+battery_level=$(acpi -b | awk -F', ' '{print $2}' | sed 's/Battery [0-9]*: //' | sed 's/%//')
+
+if [[ $battery_level -lt 10 && $battery_status == "Discharging" && `dunstctl count displayed` == 0 ]]; then
+    notify-send -u critical "Low Battery: ${battery_level}%"
+fi
+
+echo "$battery_status$battery_level%"

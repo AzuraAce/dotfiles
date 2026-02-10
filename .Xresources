@@ -1,0 +1,31 @@
+Xft.dpi: 192
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+Xcursor.size: 48
+Xcursor.theme: WhiteSur-cursors
+
+! theme to use: macchiato, nord, gruvbox
+! #include "/home/oliver/themes/Xresources/nord"
+#include "/home/oliver/themes/Xresources/default"
+
+dwm.font: SF Mono:size=12
+dwm.fontalt0: Hack Nerd Font Mono:size=14
+dwm.dmenufont: SF Mono:size=12
+dwm.borderpx: 5
+! dwm.selbordercolor: #917bd0
+! dwm.selbgcolor: #54487A
+
+! st.font: SF Mono:size=12
+st.font: Iosevka:size=12
+st.fontalt0: Hack Nerd Font Mono:size=14
+
+dmenu.font: SF Mono:size=12
+! dmenu.selbgcolor: #54487A
+
+slock.bgimage: /home/oliver/wallpapers/nyacat.png
+! slock.colinput: #54487A

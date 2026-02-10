@@ -1,0 +1,20 @@
+st.color0:  #2e3436
+st.color1:  #a40000
+st.color2:  #4e9a06
+st.color3:  #c4a000
+st.color4:  #3465a4
+st.color5:  #75507b
+st.color6:  #34a0a4
+st.color7:  #babdb9
+
+st.color8:  #555753
+st.color9:  #ef2929
+st.color10: #8ae234
+st.color11: #fce94f
+st.color12: #729fcf
+st.color13: #ad7fa8
+st.color14: #72d9cf
+st.color15: #eeeeec
+
+st.foreground: #e4e4ef
+st.background: #181818

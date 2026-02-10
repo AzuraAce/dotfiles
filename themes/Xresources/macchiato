@@ -1,0 +1,71 @@
+#define bg #24273a
+#define fg #cad3f5
+#define cc #f4dbd6
+
+! black
+#define cat0 #494d64
+#define cat8 #5b6078
+
+! red
+#define cat1 #ed8796
+#define cat9 #ed8796
+
+! green
+#define cat2 #a6da95
+#define cat10 #a6da95
+
+! yellow
+#define cat3 #eed49f
+#define cat11 #eed49f
+
+! blue
+#define cat4 #8aadf4
+#define cat12 #8aadf4
+
+! magenta
+#define cat5 #f5bde6
+#define cat13 #f5bde6
+
+! cyan
+#define cat6 #8bd5ca
+#define cat14 #8bd5ca
+
+! white
+#define cat7 #b8c0e0
+#define cat15 #a5adcb
+
+dwm.normbgcolor: bg
+dwm.normfgcolor: fg
+dwm.selbgcolor: bg
+dwm.selfgcolor: cat5
+dwm.selbordercolor: cat5
+
+dmenu.normbgcolor: bg
+dmenu.normfgcolor: fg
+dmenu.selbgcolor: bg
+dmenu.selfgcolor: cat5
+
+slock.colinput: cat5
+slock.colinit: bg
+slock.colfailed: cat1
+
+st.foreground: fg
+st.background: bg
+st.cursorColor: cc
+
+st.color0: cat0
+st.color1: cat1
+st.color2: cat2
+st.color3: cat3
+st.color4: cat4
+st.color5: cat5
+st.color6: cat6
+st.color7: cat7
+st.color8: cat8
+st.color9: cat9
+st.color10: cat10
+st.color11: cat11
+st.color12: cat12
+st.color13: cat13
+st.color14: cat14
+st.color15: cat15

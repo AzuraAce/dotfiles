@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+toggle_wifi ()
+{
+  status="$(nmcli r wifi)"
+  if [ "$status" == "enabled" ]; then
+    nmcli radio wifi off
+    notify-send -u low "WiFi: [off]"
+  else
+    nmcli radio wifi on
+    notify-send -u low "WiFi: [on]"
+    sleep 5
+  fi
+}
+
+# signal number + 34
+case "$BLOCK_BUTTON" in
+    1) iwctl station wlan0 scan; "$TERMINAL" -e impala; kill -37 $(pidof dwmblocks) ;;
+    3) toggle_wifi ;;
+    2) "$TERMINAL" -e "$EDITOR" "$0" ;; # Middle button
+esac
+
+# essid="$(iwgetid -r)"
+# if [ -z "${essid}" ]; then
+#   echo "Disconnected"
+#   exit 0
+# fi
+
+strength="$(awk 'NR==3 {print int($3)}' /proc/net/wireless)"
+if [ -z "${strength}" ]; then
+    echo "󰤮"
+    exit 0
+fi
+
+if [ "${strength}" -ge 70 ]; then
+    icon="󰤨"
+elif [ "${strength}" -ge 50 ]; then
+    icon="󰤥"
+elif [ "${strength}" -ge 30 ]; then
+    icon="󰤢"
+elif [ "${strength}" -gt 0 ]; then
+    icon="󰤟"
+fi
+
+# echo "${essid}"
+echo "${icon}"

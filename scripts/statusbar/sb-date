@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+case "$BLOCK_BUTTON" in
+    1) st -c "calcurse" -g "85x25+550+300" -e "calcurse" ;;
+    4) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+date '+%a, %d %b %Y %H:%M'
