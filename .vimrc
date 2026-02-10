@@ -47,6 +47,8 @@ if has('unnamedplus')
 else
     set clipboard^=unnamed
 endif
+" save yanked text to clipboard on exit
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " Spell Check and Correct Spelling mistake in .tex files
 autocmd BufNewFile,BufRead *.tex set spell spelllang=de,en
@@ -79,6 +81,9 @@ let g:vimtex_compiler_latexmk = {
             \ 'aux_dir': './aux',
             \ 'out_dir': './out',
 \}
+
+" COC Settings
+inoremap <silent> <C-x><C-o> <C-r>=coc#refresh()<CR>
 
 " Install Vim-Plug if not already installed
 if has('win32') || has('win64')
@@ -113,6 +118,9 @@ call plug#begin()
     " FZF
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
+
+    " LSP
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Snippets
     if has('python3')
