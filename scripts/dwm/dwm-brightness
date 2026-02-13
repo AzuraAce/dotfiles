@@ -32,5 +32,5 @@ icon=$(get_icon $brightness)
 notify-send -a "$APP_NAME" \
             -h string:x-canonical-private-synchronous:brightness \
             -h int:value:"$brightness" \
-            -i "$icon" \
+            -i "xfpm-brightness-lcd" \
             ""

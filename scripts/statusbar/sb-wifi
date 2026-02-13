@@ -9,13 +9,17 @@ toggle_wifi ()
   else
     nmcli radio wifi on
     notify-send -u low "WiFi: [on]"
-    sleep 5
   fi
 }
 
 # signal number + 34
 case "$BLOCK_BUTTON" in
-    1) iwctl station wlan0 scan; "$TERMINAL" -e impala; kill -37 $(pidof dwmblocks) ;;
+    1) if command -v nmcli &>/dev/null; then
+           "$TERMINAL" -e nmtui;       
+       else
+           iwctl station wlan0 scan; "$TERMINAL" -e impala;
+       fi 
+       kill -37 $(pidof dwmblocks) ;;
     3) toggle_wifi ;;
     2) "$TERMINAL" -e "$EDITOR" "$0" ;; # Middle button
 esac

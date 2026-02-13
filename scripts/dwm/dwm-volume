@@ -4,12 +4,14 @@ APP_NAME="volume"
 STEP=5
 
 get_icon () {
-  if [ $1 -lt 20 ]; then
-    echo "audio-volume-low"
+  if [ $1 -lt 1 ]; then
+    echo "muted"
+  elif [ $1 -lt 20 ]; then
+    echo "low"
   elif [ $1 -lt 70 ]; then
-    echo "audio-volume-medium"
+    echo "medium"
   else
-    echo "audio-volume-high"
+    echo "high"
   fi
 }
 
@@ -19,25 +21,25 @@ case "$1" in
     wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
     volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ \
                | awk '{print int($2*100)}')
-    icon=$(get_icon $volume)
+    icon="audio-volume-$(get_icon $volume)-symbolic"
     ;;
   down)
     wpctl set-volume @DEFAULT_AUDIO_SINK@ ${STEP}%-
     wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
     volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ \
                | awk '{print int($2*100)}')
-    icon=$(get_icon $volume)
+    icon="audio-volume-$(get_icon $volume)-symbolic"
     ;;
   mute)
     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
     muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}')
     if [[ ! -z $muted ]]; then
-      icon="audio-volume-muted"
+      icon="audio-volume-muted-symbolic"
       volume=0
     else
       volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ \
                 | awk '{print int($2*100)}')
-      icon=$(get_icon $volume)
+    icon="audio-volume-$(get_icon $volume)-symbolic"
     fi
     ;;
   mute-mic)
@@ -45,12 +47,12 @@ case "$1" in
     muted_mic=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ \
                   | awk '{print $3}')
     if [[ ! -z $muted_mic ]]; then
-      icon="mic-volume-muted"
+      icon="microphone-sensitivity-muted-symbolic"
       volume=0
     else
       volume=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ \
                 | awk '{print int($2*100)}')
-      icon="mic-volume-high"
+      icon="microphone-sensitivity-$(get_icon $volume)-symbolic"
     fi
     ;;
   *)

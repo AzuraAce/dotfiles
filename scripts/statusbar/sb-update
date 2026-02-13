@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+tup=$(xbps-install -Sun | wc -l)
+if [ "${tup}" -eq "0" ]; then
+	echo ":D";
+else 
+	echo "${tup}";
+fi
+# echo "  ${tup}"
+
+# signal number + 34
+case "$BLOCK_BUTTON" in
+    1) "$TERMINAL" -e "sudo xbps-install -Su"; kill -35 $(pidof dwmblocks) ;;
+    3) ;;
+    2) "$TERMINAL" -e "$EDITOR" "$0" ;; # Middle button
+esac

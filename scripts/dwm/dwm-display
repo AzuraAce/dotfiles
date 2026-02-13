@@ -1,0 +1,199 @@
+#!/bin/bash
+
+# xrand-menu:	Manage a multiple monitor setup on xorg with dmenu.
+# Last Change:  12/02/2026
+# Author:  	Oliver Steiner <oliverjjst@proton.me>
+# License:      MIT LICENSE
+
+
+PRIMARY=$(xrandr | grep -w  primary |  awk '{print $(1)}')
+
+
+function choose_output {
+
+	OUTPUTS=$(xrandr | grep -w  connected ) 
+	MESSAGE="Connected outputs"
+
+	if [ "$1" == "-a" ] ||  [ "$2" == "-a" ]
+	then
+		OUTPUTS=$(echo "$OUTPUTS" | grep --extended-regexp "connected\s(primary\s)?[0-9]+x[0-9]+") 
+		MESSAGE="Active outputs"
+	fi
+
+	if [ "$1" == "-p" ] ||  [ "$2" == "-p" ]
+	then
+		OUTPUTS=$(echo "$OUTPUTS" | grep -v -w primary) 
+		MESSAGE="$MESSAGE (primary not listed)"
+	fi
+
+	OUTPUTS=$(echo "$OUTPUTS" | awk '{print $(1)}' | dmenu -i -p "$MESSAGE")
+	echo "$OUTPUTS"
+}
+
+
+function change_res {
+
+	RES=$(xrandr | awk '/'"$1"'/{f=1;next} /[A-Z]/{f=0} f' |  awk '{print $(1)}' | dmenu -i -p "Choose resolution")
+
+	if [ -n "$RES" ]
+	then
+		xrandr --output "$1" --mode "$RES"
+	fi
+}
+
+
+function disconnect {
+
+	xrandr --output $1 --off
+	CONNECTED=$(xrandr | grep --extended-regexp  "connected\s[0-9]+x[0-9]+")
+
+	if [ -n "$CONNECTED" ]
+	then
+        	xrandr --output $PRIMARY --auto
+	fi
+}
+
+
+
+function mirror {
+
+	xrandr --output "$1" --off
+	RESOLUTION=$(xrandr | grep -P "(?<=connected\sprimary\s)[0-9]+x[0-9]+"|  awk '{print $(4)}')
+	xrandr  --output "$1" --auto --same-as "$PRIMARY" --scale-from $RESOLUTION
+}
+
+
+
+function single_monitor {
+
+	xrandr --output $1 --off
+	CONNECTED=$(xrandr | grep -P "connected(\sprimary)?\s[0-9]+x[0-9]+"|  awk '{print $(1)}' | head -n 1)
+
+	while [ -n "$CONNECTED" ]
+	do
+		xrandr --output $CONNECTED --off 
+		CONNECTED=$(xrandr | grep -P "connected(\sprimary)?\s[0-9]+x[0-9]+"|  awk '{print $(1)}' | head -n 1)
+	done
+
+	xrandr --output $1 --primary --auto
+}
+
+
+
+function extend {
+
+	POSITION=$(echo -e "Right\nLeft\nAbove\nBelow" | dmenu  -i -p "Position")
+	xrandr --output "$1" --off
+
+	case "$POSITION" in
+
+	        "Right")
+			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --right-of "$PRIMARY" --auto
+	                ;;
+	        "Left") 
+			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --left-of "$PRIMARY" --auto
+	                ;;
+	        "Above") 
+			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --above "$PRIMARY" --auto
+	                ;;
+	        "Below") 
+			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --below "$PRIMARY" --auto
+	                ;;
+		*) exit
+			;;
+	esac
+}
+
+
+function rotate {
+
+	ROTATION=$(echo -e "left\nright\nnormal\ninverted" | dmenu -i -p "Rotation:")
+
+	xrandr --output "$1" --rotate "$ROTATION" 
+	xrandr --output "$1" --auto 
+}
+
+
+
+
+ 
+CHOOSEN=$(echo -e "Connect monitor\nDisconnect external monitor\nRotate screen\nChange screen resolution" | dmenu -i -p "xrandr-menu")
+
+
+
+case "$CHOOSEN" in
+	"Connect monitor") 
+
+		OUTPUT=$(choose_output -p)
+
+		if [ -z "$OUTPUT" ]
+		then
+       			exit
+		fi
+		;;
+
+
+	"Disconnect external monitor")
+
+		OUTPUT=$(choose_output -a -p)
+
+		if [ -z "$OUTPUT" ]
+		then
+		        exit
+		fi
+
+		disconnect "$OUTPUT"
+		exit
+		;;
+
+
+	"Rotate screen") 
+
+		OUTPUT=$(choose_output -a)
+
+		if [ -z "$OUTPUT" ]
+		then
+		        exit
+		fi
+
+		rotate "$OUTPUT"
+		exit
+		;;
+		
+	"Change screen resolution") 
+
+		OUTPUT=$(choose_output -a)
+
+		if [ -z "$OUTPUT" ]
+		then
+		        exit
+		fi
+
+		change_res "$OUTPUT"
+		exit
+		;;
+
+	*) exit
+		;;
+
+esac
+
+
+
+CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | dmenu  -i -p "Choose a mode:")
+
+
+case "$CHOOSEN" in 
+	"Mirror mode") mirror "$OUTPUT"
+		;;
+
+	"Extended mode") extend "$OUTPUT"
+		;;
+
+	"Single-monitor mode") single_monitor "$OUTPUT"
+		;;
+
+	*) exit
+		;;
+
+esac
