@@ -3,15 +3,15 @@
 [global]
     frame_color = "#54487a"
     background = "#2E3440"
-    font = SF Mono 12
+    font = NotoMono NF   
 
     ### Icons   
     enable_recursive_icon_lookup = true
-    icon_theme = "WhiteSur"
+    icon_theme = "Papirus-Dark"
     icon_position = left
-    min_icon_size = 32
-    max_icon_size = 32
-    icon_path = /usr/share/icons/WhiteSur/
+    min_icon_size = 22
+    max_icon_size = 128
+    icon_path = /usr/share/icons/Papirus-Dark/
 
     dmenu = /usr/bin/dmenu -p dunst:
     browser = /usr/bin/xdg-open
