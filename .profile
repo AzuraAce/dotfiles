@@ -10,16 +10,15 @@ export TERM="st"
 #
 # .desktop files can be found in /usr/share/applications/
 # the BROWSER env is used by DWM by pressing MOD+w
-export BROWSER="brave"
+export BROWSER="firefox"
 
-export PATH="$PATH:~/.npm_install/bin:/home/oliver/.cargo/bin:~/.emacs.d/bin"
+export PATH="$PATH:~/.npm_install/bin:/home/oliver/.cargo/bin"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XINITRC="$HOME/.xinitrc"
 export XDG_DESKTOP_DIR="$HOME"
-export XDG_DOCUMENTS_DIR="$HOME/documents"
-export XDG_DOWNLOAD_DIR="$HOME/downloads"
-export XDG_PICTURES_DIR="$HOME/pictures"
-export XDG_VIDEOS_DIR="$HOME/videos"
-
+# export XDG_DOCUMENTS_DIR="$HOME/documents"
+# export XDG_DOWNLOAD_DIR="$HOME/downloads"
+# export XDG_PICTURES_DIR="$HOME/pictures"
+# export XDG_VIDEOS_DIR="$HOME/videos"
