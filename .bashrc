@@ -20,53 +20,7 @@ eval "$(fzf --bash)"
 
 PROMPT_DIRTRIM=2
 # PS1 theming 
-# taken from https://github.com/bahamas10/dotfiles/blob/master/bashrc
-COLOR256=()
-COLOR256[0]=$(tput setaf 1)
-COLOR256[256]=$(tput sgr0)
-COLOR256[257]=$(tput bold)
-PROMPT_COLORS=()
-# Change the prompt colors to a theme, themes are 0-29
-set_prompt_colors() {
-	local h=${1:-0}
-	local color=
-	local i=0
-	local j=0
-	for i in {22..231}; do
-		((i % 30 == h)) || continue
-
-		color=${COLOR256[$i]}
-		# cache the tput colors
-		if [[ -z $color ]]; then
-			COLOR256[$i]=$(tput setaf "$i")
-			color=${COLOR256[$i]}
-		fi
-		PROMPT_COLORS[$j]=$color
-		((j++))
-	done
-}
-colors() {
-	local i
-	for i in {0..255}; do
-		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
-	done
-	tput sgr0
-}
-# set the theme
-set_prompt_colors 24
-
-# exit code of last process
-PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'
-# username (red for root)
-PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\]'
-# @
-PS1+='\[${PROMPT_COLORS[1]}\]\[${COLOR256[257]}\]@\[${COLOR256[256]}\]'
-# hostname
-PS1+='\[${PROMPT_COLORS[3]}\]\h '
-# cwd
-PS1+='\[${PROMPT_COLORS[5]}\]\w '
-# prompt character
-PS1+='\[${PROMPT_COLORS[2]}\]\$\[${COLOR256[256]}\] '
+export PS1='\[\[\e[1;36m\]\u@\H \[\e[1;33m\]\w \[\e[1;36m\]\$ \[\e[0m\]'
 
 # Completions
 . /usr/share/bash-completion/bash_completion
@@ -76,8 +30,12 @@ complete -F _root_command doas
 # History
 HISTSIZE=2000
 HISTFILESIZE=2000
-HISTCONTROL=ignoredups:erasedups
+HISTCONTROL=ignoreboth
 shopt -s histappend
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
 # Aliases
 #alias paru="paru -a" # use paru only for aur pkgs

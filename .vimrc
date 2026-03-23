@@ -10,7 +10,7 @@ let maplocalleader = " "
 " UI
 set number              " Show line numbers
 set relativenumber      " Relative line numbers
-set cursorline          " Highlight current line
+" set cursorline          " Highlight current line
 set tabstop=4           " Number of spaces tabs count for
 set shiftwidth=4        " Spaces for autoindent
 set expandtab           " Convert tabs to spaces
@@ -120,7 +120,7 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'
 
     " LSP
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Snippets
     if has('python3')
@@ -141,7 +141,7 @@ call plug#begin()
     nnoremap <leader>n :NERDTreeToggle<CR>:if g:NERDTree.IsOpen() \| NERDTreeFocus \| endif<CR>
 
     " Theme
-    Plug 'dangerousScript/gruber-darker-nvim'
+    Plug 'dangerousScript/gruber-darker.nvim'
 
     " Startup Image
     Plug 'mhinz/vim-startify'    
@@ -150,7 +150,7 @@ call plug#begin()
 call plug#end()
 
 " Theming
-colorscheme gruberdarker
+" colorscheme gruberdarker
 
 " Purple Line Numbers and Grey comments
 hi LineNr ctermfg=5 guifg=#8f7bcc ctermbg=NONE guibg=NONE

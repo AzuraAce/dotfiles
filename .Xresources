@@ -1,4 +1,5 @@
-Xft.dpi: 192
+Xft.dpi: 261
+! Xft.dpi: 192
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
@@ -13,7 +14,7 @@ Xcursor.theme: Adwaita
 ! #include "/home/oliver/themes/Xresources/nord"
 #include "/home/oliver/themes/Xresources/default"
 
-dwm.font: NotoMono NF:size=12
+dwm.font: NotoMono NF:size=10
 dwm.fontalt0: Hack Nerd Font Mono:size=14
 dwm.dmenufont: SF Mono:size=12
 dwm.borderpx: 5
@@ -21,10 +22,10 @@ dwm.borderpx: 5
 ! dwm.selbgcolor: #54487A
 
 ! st.font: SF Mono:size=12
-st.font: Iosevka:size=12
+st.font: Iosevka:size=10
 st.fontalt0: Hack Nerd Font Mono:size=14
 
-dmenu.font: NotoMono NF:size=12
+dmenu.font: NotoMono NF:size=10
 ! dmenu.selbgcolor: #54487A
 
 slock.bgimage: /home/oliver/wallpapers/nyacat.png

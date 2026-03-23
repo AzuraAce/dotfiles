@@ -20,6 +20,9 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
+;;; PDF Tools
+(pdf-loader-install) 
+
 ;;; delete selected text on insertion
 (use-package delsel
   :ensure nil ; no need to install it as it is built-in
@@ -51,7 +54,7 @@
 (setq mouse-wheel-flip-direction t)
 
 ;;; font
-(add-to-list 'default-frame-alist `(font . "Iosevka-12"))
+(add-to-list 'default-frame-alist `(font . "Iosevka-10"))
 ;; (let ((mono-spaced-font "Iosevka")
 ;;       (proportionately-spaced-font "Sans"))
 ;;   (set-face-attribute 'default nil :family mono-spaced-font :height 100)
@@ -78,15 +81,65 @@
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
 
+;;; Major Modes
+;; c-mode
+(setq-default c-basic-offset 4
+              c-default-style '((java-mode . "java")
+                                (awk-mode . "awk")
+                                (other . "bsd")))
+(add-hook 'c-mode-hook (lambda ()
+                         (interactive)
+                         (c-toggle-comment-style -1)))
+;; LaTeX
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+
+;;; lsp-mode
+;;(use-package lsp-mode
+;;  :ensure t
+;;  :config
+;;  (add-hook 'c++-mode-hook #'lsp)
+;;  (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error")))
+;;
+;;(use-package xref
+;;  :ensure t)
+
 ;;; configure minibuffer
+;(ido-mode)
+;(ido-everywhere)
+
+;(use-package ido-completing-read+
+;    :ensure t
+;    :hook (after-init . ido-ubiquitous-mode))
+
+;; ivy (alternative to ido)
+;(use-package ivy
+;    :ensure t)
+;    :hook (after-init . ivy-mode)
+
+;(use-package amx
+;    :ensure t
+;    :hook (after-init . amx-mode))
+
+;; vertico (alternative to ido)
 (use-package vertico
   :ensure t
-  :hook (after-init . vertico-mode))
+  :init
+  (vertico-mode)
+  (vertico-flat-mode))
 
-(use-package marginalia
+;; consult better isearch
+(use-package consult
   :ensure t
-  :hook (after-init . marginalia-mode))
+  :bind (("M-s r" . consult-ripgrep)))
 
+;; command annotations
+;(use-package marginalia
+;  :ensure t
+;  :hook (after-init . marginalia-mode))
+
+;; better command search
 (use-package orderless
   :ensure t
   :config
@@ -95,25 +148,26 @@
   (setq completion-category-overrides nil))
 
 (use-package savehist
-  :ensure nil ; it is built-in
-  :hook (after-init . savehist-mode))
+  :init
+  (savehist-mode))
 
-(use-package corfu
-  :ensure t
-  :hook (after-init . global-corfu-mode)
-  :bind (:map corfu-map ("<tab>" . corfu-complete))
-  :config
-  (setq tab-always-indent 'complete)
-  (setq corfu-preview-current nil)
-  (setq corfu-min-width 20)
-
-  (setq corfu-popupinfo-delay '(1.25 . 0.5))
-  (corfu-popupinfo-mode 1) ; shows documentation after `corfu-popupinfo-delay'
-
-  ;; Sort by input history (no need to modify `corfu-sort-function').
-  (with-eval-after-load 'savehist
-    (corfu-history-mode 1)
-    (add-to-list 'savehist-additional-variables 'corfu-history)))
+;; completion
+;(use-package corfu
+;  :ensure t
+;  :hook (after-init . global-corfu-mode)
+;  :bind (:map corfu-map ("<tab>" . corfu-complete))
+;  :config
+;  (setq tab-always-indent 'complete)
+;  (setq corfu-preview-current nil)
+;  (setq corfu-min-width 20)
+;
+;  (setq corfu-popupinfo-delay '(1.25 . 0.5))
+;  (corfu-popupinfo-mode 1) ; shows documentation after `corfu-popupinfo-delay'
+;
+;  ;; Sort by input history (no need to modify `corfu-sort-function').
+;  (with-eval-after-load 'savehist
+;    (corfu-history-mode 1)
+;    (add-to-list 'savehist-additional-variables 'corfu-history)))
 
 ;;; 'dired' file manager
 (use-package dired
