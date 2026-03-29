@@ -20,7 +20,7 @@ eval "$(fzf --bash)"
 
 PROMPT_DIRTRIM=2
 # PS1 theming 
-export PS1='\[\[\e[1;36m\]\u@\H \[\e[1;33m\]\w \[\e[1;36m\]\$ \[\e[0m\]'
+PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
 
 # Completions
 . /usr/share/bash-completion/bash_completion
