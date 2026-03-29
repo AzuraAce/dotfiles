@@ -21,7 +21,9 @@
                (allow-no-window . t)))
 
 ;;; PDF Tools
-(pdf-loader-install) 
+(use-package pdf-tools
+    :ensure t
+    :init (pdf-loader-instal))
 
 ;;; delete selected text on insertion
 (use-package delsel
@@ -106,33 +108,42 @@
 ;;  :ensure t)
 
 ;;; configure minibuffer
-;(ido-mode)
-;(ido-everywhere)
+(ido-mode)
+(ido-everywhere)
 
-;(use-package ido-completing-read+
-;    :ensure t
-;    :hook (after-init . ido-ubiquitous-mode))
+(use-package ido-completing-read+
+    :ensure t
+    :hook (after-init . ido-ubiquitous-mode))
 
 ;; ivy (alternative to ido)
 ;(use-package ivy
 ;    :ensure t)
 ;    :hook (after-init . ivy-mode)
 
-;(use-package amx
-;    :ensure t
-;    :hook (after-init . amx-mode))
+;; nice list of M-x options
+(use-package amx
+    :ensure t
+    :hook (after-init . amx-mode))
+
+;; smex (alternative to amx)
+; (use-package smex
+;     :ensure t
+;     :init 
+;     (smex-initialize)
+;     (global-set-key (kbd "M-x") 'smex)
+;     (global-set-key (kbd "M-X") 'smex-major-mode-commands))
 
 ;; vertico (alternative to ido)
-(use-package vertico
-  :ensure t
-  :init
-  (vertico-mode)
-  (vertico-flat-mode))
+; (use-package vertico
+;   :ensure t
+;   :init
+;   (vertico-mode)
+;   (vertico-flat-mode))
 
 ;; consult better isearch
-(use-package consult
-  :ensure t
-  :bind (("M-s r" . consult-ripgrep)))
+; (use-package consult
+;   :ensure t
+;   :bind (("M-s r" . consult-ripgrep)))
 
 ;; command annotations
 ;(use-package marginalia

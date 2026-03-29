@@ -7,8 +7,8 @@
  '(package-selected-packages
    '(amx auctex cmake-mode consult counsel dired-subtree f glsl-mode
          gruber-darker-theme ht ido-completing-read+ lv marginalia
-         markdown-mode move-text orderless pdf-tools smex spinner
-         trashed vertico xref)))
+         markdown-mode move-text orderless pdf-tools spinner trashed
+         vertico xref)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
