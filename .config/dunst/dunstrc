@@ -3,14 +3,14 @@
 [global]
     frame_color = "#54487a"
     background = "#2E3440"
-    font = NotoMono NF   
+    font = Iosevka   
 
     ### Icons   
     enable_recursive_icon_lookup = true
     icon_theme = "Papirus-Dark"
     icon_position = left
     min_icon_size = 22
-    max_icon_size = 128
+    max_icon_size = 32
     icon_path = /usr/share/icons/Papirus-Dark/
 
     dmenu = /usr/bin/dmenu -p dunst:
