@@ -15,7 +15,7 @@ toggle_wifi ()
 # signal number + 34
 case "$BLOCK_BUTTON" in
     1) if command -v nmcli &>/dev/null; then
-           "$TERMINAL" -e nmtui;       
+           nmcli device wifi rescan; "$TERMINAL" -e nmtui;       
        else
            iwctl station wlan0 scan; "$TERMINAL" -e impala;
        fi 
