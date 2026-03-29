@@ -1,3 +1,10 @@
+#define GENTOO_PURPLE #54487A
+#define GENTOO_PURPLE_LIGHT #61538D
+
+! dwm
+*.selbordercolor: GENTOO_PURPLE
+*.selbgcolor: GENTOO_PURPLE
+
 ! special
 *.foreground:   #c5c8c6
 *.background:   #1d1f21

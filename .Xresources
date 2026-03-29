@@ -7,26 +7,27 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-Xcursor.size: 40
+Xcursor.size: 42
 Xcursor.theme: Adwaita
 
-! theme to use: macchiato, nord, gruvbox
-! #include "/home/oliver/themes/Xresources/nord"
-#include "/home/oliver/themes/Xresources/default"
+! theme to use: default, macchiato, nord, gruvbox
+!#include "/home/oliver/themes/Xresources/gentoo"
+#include "/home/oliver/themes/Xresources/iterm"
 
-dwm.font: NotoMono NF:size=10
-dwm.fontalt0: Hack Nerd Font Mono:size=14
-dwm.dmenufont: SF Mono:size=12
-dwm.borderpx: 5
-! dwm.selbordercolor: #917bd0
-! dwm.selbgcolor: #54487A
+#define GENTOO_PURPLE #54487A
+#define GENTOO_PURPLE_LIGHT #61538D
 
-! st.font: SF Mono:size=12
+! dwm and dmenu
+*.selbordercolor: GENTOO_PURPLE
+*.selbgcolor: GENTOO_PURPLE
+
+dwm.font: Iosevka:size=10
+dwm.fontalt0: Symbols Nerd Font Mono:size=10
+dwm.borderpx: 8
+
 st.font: Iosevka:size=10
-st.fontalt0: Hack Nerd Font Mono:size=14
+st.fontalt0: Symbols Nerd Font Mono:size=10
 
-dmenu.font: NotoMono NF:size=10
-! dmenu.selbgcolor: #54487A
+dmenu.font: Iosevka:size=10
 
 slock.bgimage: /home/oliver/wallpapers/nyacat.png
-! slock.colinput: #54487A
