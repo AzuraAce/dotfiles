@@ -3,7 +3,7 @@
 [global]
     frame_color = "#54487a"
     background = "#2E3440"
-    font = Iosevka   
+    font = "Iosevka 14"
 
     ### Icons   
     enable_recursive_icon_lookup = true
