@@ -6,9 +6,10 @@ export TERM="st"
 
 # Scaling Settings
 export GDK_SCALE=1
-export GDK_DPI_SCALE=0.75
+export GDK_DPI_SCALE=1
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
-export QT_SCALE_FACTOR=0.75
+export QT_ENABLE_HIGHDPI_SCALING=0
+export QT_SCALE_FACTOR=1
 export CHROME_FLAGS="--force-device-scale-factor=1"
 
 # Most apps use xdg-open not $BROWSER
