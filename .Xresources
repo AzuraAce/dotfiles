@@ -1,5 +1,4 @@
-Xft.dpi: 261
-! Xft.dpi: 192
+Xft.dpi: 192
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
@@ -21,13 +20,13 @@ Xcursor.theme: Adwaita
 *.selbordercolor: GENTOO_PURPLE
 *.selbgcolor: GENTOO_PURPLE
 
-dwm.font: Iosevka:size=10
-dwm.fontalt0: Symbols Nerd Font Mono:size=10
+dwm.font: Iosevka:size=14
+dwm.fontalt0: Symbols Nerd Font Mono:size=14
 dwm.borderpx: 8
 
-st.font: Iosevka:size=10
-st.fontalt0: Symbols Nerd Font Mono:size=10
+st.font: Iosevka:size=14
+st.fontalt0: Symbols Nerd Font Mono:size=14
 
-dmenu.font: Iosevka:size=10
+dmenu.font: Iosevka:size=14
 
 slock.bgimage: /home/oliver/wallpapers/nyacat.png
