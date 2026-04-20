@@ -23,7 +23,12 @@
 ;;; PDF Tools
 (use-package pdf-tools
     :ensure t
-    :init (pdf-loader-instal))
+    :init 
+    (pdf-tools-install))
+
+;;; only vertical buffers
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
 
 ;;; delete selected text on insertion
 (use-package delsel
@@ -56,7 +61,7 @@
 (setq mouse-wheel-flip-direction t)
 
 ;;; font
-(add-to-list 'default-frame-alist `(font . "Iosevka-10"))
+(add-to-list 'default-frame-alist `(font . "Iosevka-14"))
 ;; (let ((mono-spaced-font "Iosevka")
 ;;       (proportionately-spaced-font "Sans"))
 ;;   (set-face-attribute 'default nil :family mono-spaced-font :height 100)
@@ -96,6 +101,7 @@
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+(setq font-latex-fontify-script nil)
 
 ;;; lsp-mode
 ;;(use-package lsp-mode
