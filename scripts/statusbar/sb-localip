@@ -4,9 +4,10 @@ switchRelay() {
     menucmd="dmenu -i"
 
     choice=$(printf "connect\ndisconnect" | dmenu -i -p "MullvadVPN")
-    if command -v mullvad >/dev/null 2>&1; then
+
+    if command -v 'mullvad' >/dev/null 2>&1; then
         mullvadVPN "$choice"
-    elif command -v wg-quick >/dev/null 2>&1; then
+    elif command -v 'wg-quick' >/dev/null 2>&1; then
         wireguardVPN "$choice"
     fi
 }
@@ -51,7 +52,7 @@ mullvadVPN() {
 }
 
 case "$BLOCK_BUTTON" in
-    1) ;; # switchRelay ;;
+    1) switchRelay ;;
     3) ;;
     2) "$TERMINAL" -e "$EDITOR" "$0" ;; # Middle button
 esac
