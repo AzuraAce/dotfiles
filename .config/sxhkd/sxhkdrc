@@ -1,0 +1,29 @@
+# make sxhkd reload its configuration files:
+super + Home
+    pkill -USR1 -x sxhkd
+
+super+w
+    $BROWSER
+
+super+d
+    j4-dmenu-desktop -t st
+
+super+n
+    st -e nmtui
+
+super+shift+x
+    ~/scripts/dwm/dwm-sys
+
+XF86MonBrightness{Up,Down}
+    ~/scripts/dwm/dwm-brightness {up,down}
+
+XF86Audio{Raise,Lower}Volume
+    ~/scripts/dwm/dwm-volume {up,down}
+XF86Audio{MicMute,Mute}
+    ~/scripts/dwm/dwm-volume {mute-mic,mute}
+
+XF86Display
+    ~/scripts/dmenu/displayselect
+
+Print
+    maim -s ~/screenshots/$(date +%d-%m-%Y_%H:%M:%S)_screenshot.png
