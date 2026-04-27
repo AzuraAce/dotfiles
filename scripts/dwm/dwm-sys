@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
 
-case "$(printf "kill\ndisplay\nzzz\nreboot\nshutdown" | dmenu -i)" in
+case "$(printf "kill\nVPN\ndisplay\nzzz\nreboot\nshutdown" | dmenu -i)" in
 	kill) ps -u $USER -o pid,comm,%cpu,%mem | dmenu -i -l 10 -p Kill: | awk '{print $1}' | xargs -r kill ;;
+    VPN) ~/scripts/statusbar/mullvad-vpn ;;
     display) ~/scripts/dwm/dwm-display ;;
-	zzz) loginctl suspend ;;
-	reboot) loginctl reboot ;;
-	shutdown) loginctl poweroff ;;
+	zzz) if command -v systemctl > /dev/null 2>&1
+         then 
+             systemctl suspend 
+         else 
+             loginctl suspend 
+         fi ;;
+	reboot) if command -v systemctl > /dev/null 2>&1
+            then
+                systemctl reboot
+            else 
+                loginctl reboot 
+            fi ;;
+	shutdown) if command -v systemctl > /dev/null 2>&1
+              then 
+                  systemctl poweroff 
+              else 
+                  loginctl shutdown 
+              fi ;;
 	*) exit 1 ;;
 esac
