@@ -3,12 +3,13 @@ export EDITOR="vim"
 export TERMINAL="st"
 export TERMINAL_PROG="st"
 export TERM="st"
+export ENV="$HOME/.kshrc"
 
 # Scaling Settings
 export GDK_SCALE=1
 export GDK_DPI_SCALE=1
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
-export QT_ENABLE_HIGHDPI_SCALING=0
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export QT_ENABLE_HIGHDPI_SCALING=1
 export QT_SCALE_FACTOR=1
 export CHROME_FLAGS="--force-device-scale-factor=1"
 
@@ -18,7 +19,7 @@ export CHROME_FLAGS="--force-device-scale-factor=1"
 #
 # .desktop files can be found in /usr/share/applications/
 # the BROWSER env is used by DWM by pressing MOD+w
-export BROWSER="firefox-bin"
+export BROWSER="firefox"
 
 # make scrolling in firefox smooth
 export MOZ_USE_XINPUT2=1

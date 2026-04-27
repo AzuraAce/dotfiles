@@ -1,3 +1,4 @@
+! 2880x1800
 Xft.dpi: 192
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
@@ -23,6 +24,7 @@ Xcursor.theme: Adwaita
 dwm.font: Iosevka:size=14
 dwm.fontalt0: Symbols Nerd Font Mono:size=14
 dwm.borderpx: 8
+dwm.dmenufont: Iosevka:size=14
 
 st.font: Iosevka:size=14
 st.fontalt0: Symbols Nerd Font Mono:size=14
