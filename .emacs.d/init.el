@@ -20,6 +20,10 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
+;;; AucTeX
+(use-package auctex
+    :ensure t)
+
 ;;; PDF Tools
 (use-package pdf-tools
     :ensure t
@@ -127,17 +131,17 @@
 ;    :hook (after-init . ivy-mode)
 
 ;; nice list of M-x options
-(use-package amx
-    :ensure t
-    :hook (after-init . amx-mode))
+;(use-package amx
+;    :ensure t
+;    :hook (after-init . amx-mode))
 
 ;; smex (alternative to amx)
-; (use-package smex
-;     :ensure t
-;     :init 
-;     (smex-initialize)
-;     (global-set-key (kbd "M-x") 'smex)
-;     (global-set-key (kbd "M-X") 'smex-major-mode-commands))
+(use-package smex
+    :ensure t
+    :init 
+    (smex-initialize)
+    (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "M-X") 'smex-major-mode-commands))
 
 ;; vertico (alternative to ido)
 ; (use-package vertico
