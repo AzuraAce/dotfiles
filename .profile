@@ -3,7 +3,6 @@ export EDITOR="vim"
 export TERMINAL="st"
 export TERMINAL_PROG="st"
 export TERM="st"
-export ENV="$HOME/.kshrc"
 
 # Scaling Settings
 export GDK_SCALE=1

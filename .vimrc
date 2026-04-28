@@ -45,11 +45,8 @@ set undofile
 set noswapfile
 
 " Use system clipboard
-if has('unnamedplus')
-    set clipboard^=unnamed,unnamedplus
-else
-    set clipboard^=unnamed
-endif
+set clipboard^=unnamed,unnamedplus
+
 " save yanked text to clipboard on exit
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
