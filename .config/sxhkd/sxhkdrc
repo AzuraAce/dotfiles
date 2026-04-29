@@ -6,7 +6,7 @@ super+w
     $BROWSER
 
 super+d
-    j4-dmenu-desktop -t st
+    j4-dmenu-desktop -d "dmenu -i" -t st
 
 super+n
     st -e nmtui
