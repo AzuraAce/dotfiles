@@ -23,7 +23,7 @@ XF86Audio{MicMute,Mute}
     ~/scripts/dwm/dwm-volume {mute-mic,mute}
 
 XF86Display
-    ~/scripts/dmenu/displayselect
+    ~/scripts/dwm/dwm-display
 
 Print
     maim -s ~/screenshots/$(date +%d-%m-%Y_%H:%M:%S)_screenshot.png
