@@ -127,7 +127,7 @@
 
   xresources = {
     extraConfig = ''
-      #include "/home/oliver/themes/Xresources/iterm"
+      #include "/home/oliver/themes/Xresources/gruber-darker"
       #define GENTOO_PURPLE #54487A
       #define GENTOO_PURPLE_LIGHT #61538D
     '';
