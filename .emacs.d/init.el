@@ -102,7 +102,7 @@
                          (interactive)
                          (c-toggle-comment-style -1)))
 ;; LaTeX
-(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+(setq TeX-view-program-selection '((output-pdf "Zathura"))
       TeX-source-correlate-start-server t)
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 (setq font-latex-fontify-script nil)
