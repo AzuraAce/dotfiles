@@ -92,6 +92,8 @@ call plug#begin()
     " Startup Image
     Plug 'mhinz/vim-startify'    
 
+    " vim-plug
+    Plug 'LnL7/vim-nix'
 call plug#end()
 
 " Theming
