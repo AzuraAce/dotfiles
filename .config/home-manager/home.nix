@@ -109,7 +109,8 @@
     mouse = true;
     clock24 = true;
     terminal = "tmux-256color";
-    extraConfig = ''set -g status-bg "#242424"
+    extraConfig = ''
+      set -g status-bg "#242424"
       set -g status-fg "#fffbf6"
       set -g status-right "#[bg=#3B3B3B] %Y-%m-%d #[bg=#525252] %H:%M "
     '';
@@ -125,7 +126,8 @@
   };
 
   xresources = {
-    extraConfig = ''#include "/home/oliver/themes/Xresources/iterm"
+    extraConfig = ''
+      #include "/home/oliver/themes/Xresources/iterm"
       #define GENTOO_PURPLE #54487A
       #define GENTOO_PURPLE_LIGHT #61538D
     '';
