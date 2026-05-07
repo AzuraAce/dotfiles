@@ -94,6 +94,12 @@
   };
   programs.git = {
       enable = true;
+      includes = [
+        {
+        path = "~/Uni/.gitconfig";
+        condition = "gitdir:~/Uni/**";
+        }
+      ];
       settings = {
         init = {
             defaultBranch = "main";
@@ -114,6 +120,51 @@
       set -g status-fg "#fffbf6"
       set -g status-right "#[bg=#3B3B3B] %Y-%m-%d #[bg=#525252] %H:%M "
     '';
+  };
+
+  services.sxhkd = {
+    enable = true;
+    keybindings = {
+      "super + Home"                  = "pkill -USR1 -x sxhkd";
+      "super + w"                     = "$BROWSER";
+      "super + d"                     = "j4-dmenu-desktop -d 'dmenu -i' -t st";
+      "super + n"                     = "st -e nmtui";
+      "super + shift + x"             = "$HOME/scripts/dwm/dwm-sys";
+      "XF86MonBrightness{Up,Down}"    = "$HOME/scripts/dwm/dwm-brightness {up,down}";
+      "XF86Audio{Raise,Lower}Volume"  = "$HOME/scripts/dwm/dwm-volume {up,down}";
+      "XF86Audio{MicMute,Mute}"       = "$HOME/scripts/dwm/dwm-volume {mute-mic,mute}";
+      "XF86Display"                   = "$HOME/scripts/dwm/dwm-display";
+      "Print"                         = "maim -s $HOME/screenshots/$(date +%d-%m-%Y_%H:%M:%S)_screenshot.png";
+    };
+  };
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        frame_color = "#54487a";
+        background = "#2E3440";
+        font = "Iosevka 14";
+        title = "Dunst";
+        class = "Dunst";
+      };
+      urgency_low = {
+        foreground = "#888888";
+        timeout = 10;
+      };
+      urgency_normal = {
+        foreground = "#ffffff";
+        timeout = 10;
+        override_pause_level = 30;
+      };
+      urgency_critical = {
+        background = "#900000";
+        foreground = "#ffffff";
+        frame_color = "#ff0000";
+        timeout = 0;
+        override_pause_level = 60;
+        default_icon = "dialog-warning";
+      };
+    };
   };
 
   xresources = {
