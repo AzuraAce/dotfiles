@@ -116,15 +116,6 @@
     '';
   };
 
-  home.pointerCursor = {
-    enable = true;
-    package = pkgs.adwaita-icon-theme;
-    size = 48;
-    name = "Adwaita";
-    x11.enable = true;
-    gtk.enable = true;
-  };
-
   xresources = {
     extraConfig = ''
       #include "/home/oliver/themes/Xresources/gruber-darker"
