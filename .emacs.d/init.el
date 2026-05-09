@@ -25,10 +25,10 @@
     :ensure t)
 
 ;;; PDF Tools
-(use-package pdf-tools
-    :ensure t
-    :init 
-    (pdf-tools-install))
+;(use-package pdf-tools
+;    :ensure t
+;    :init 
+;    (pdf-tools-install))
 
 ;;; only vertical buffers
 (setq split-height-threshold nil)
