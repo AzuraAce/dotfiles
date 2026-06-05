@@ -77,8 +77,10 @@
         dotfiles = "git --git-dir=\"$HOME/.dotfiles/\" --work-tree=\"$HOME\"";
         rebuild = "doas nixos-rebuild switch";
         rebuild-home = "home-manager switch -b backup";
+        rebuild-flake = "cd /etc/nixos && doas nix flake update";
         config = "doas $EDITOR /etc/nixos/configuration.nix";
         config-home = "$EDITOR $HOME/.config/home-manager/home.nix";
+        config-flake = "doas $EDITOR /etc/nixos/flake.nix";
     };
     shellOptions = [
       "histappend"
