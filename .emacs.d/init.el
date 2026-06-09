@@ -107,16 +107,6 @@
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 (setq font-latex-fontify-script nil)
 
-;;; lsp-mode
-;;(use-package lsp-mode
-;;  :ensure t
-;;  :config
-;;  (add-hook 'c++-mode-hook #'lsp)
-;;  (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error")))
-;;
-;;(use-package xref
-;;  :ensure t)
-
 ;;; configure minibuffer
 (ido-mode)
 (ido-everywhere)
@@ -171,6 +161,18 @@
 (use-package savehist
   :init
   (savehist-mode))
+
+;; LSP client
+(use-package eglot
+  :hook ((python-mode . eglot-ensure)
+         (rust-mode . eglot-ensure)
+         (c++-mode . eglot-ensure)
+         (c-mode . eglot-ensure))
+  :config
+  ;; Disable inlay hints by default
+  (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
+  (setq eglot-stay-out-of '(flymake))
+  (setq eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; completion
 ;(use-package corfu
