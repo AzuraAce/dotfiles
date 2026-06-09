@@ -1,6 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
+let
+  helium = inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
+  nixpkgs.config.allowUnfree = true;
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "oliver";
@@ -18,6 +22,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+     helium
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -53,7 +58,7 @@
   #
   home.sessionVariables = {
     EDITOR = "vim";
-    BROWSER = "${pkgs.firefox}/bin/firefox";
+    BROWSER = "${helium}/bin/helium";
     MOZ_USE_XINPUT2 = "1";
   };
 
@@ -188,5 +193,13 @@
       "dmenu.font" = "Iosevka:size=14";
       "slock.bgimage" = "/home/oliver/wallpapers/nyacat.png";
     };
+  };
+
+  home.pointerCursor = {
+    name = "macOS";
+    package = pkgs.apple-cursor;
+    size = 40;
+    gtk.enable = true;
+    x11.enable = true;
   };
 }
