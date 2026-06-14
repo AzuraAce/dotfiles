@@ -5,8 +5,7 @@ HISTSIZE=5000
 
 # Aliases
 alias ff="fastfetch"
-alias ll="ls -lah --color"
-alias ls="ls --color"
+alias ll="ls -lah"
 alias za="zathura"
 alias dotfiles='/usr/local/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias format='astyle -A3 -t8 -p -xg -H -j -xB'
