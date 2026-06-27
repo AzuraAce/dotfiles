@@ -16,19 +16,20 @@ Xcursor.theme: Adwaita
 
 #define GENTOO_PURPLE #54487A
 #define GENTOO_PURPLE_LIGHT #61538D
+#define FONT JetBrains Mono:size=14
 
 ! dwm and dmenu
 *.selbordercolor: GENTOO_PURPLE
 *.selbgcolor: GENTOO_PURPLE
 
-dwm.font: Iosevka:size=14
+dwm.font: FONT
 dwm.fontalt0: Symbols Nerd Font Mono:size=14
 dwm.borderpx: 8
-dwm.dmenufont: Iosevka:size=14
+dwm.dmenufont: JetBrains Mono-14
 
-st.font: Iosevka:size=14
+st.font: FONT
 st.fontalt0: Symbols Nerd Font Mono:size=14
 
-dmenu.font: Iosevka:size=14
+dmenu.font: FONT
 
 slock.bgimage: /home/oliver/wallpapers/nyacat.png
