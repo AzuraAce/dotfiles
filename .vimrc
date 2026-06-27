@@ -58,6 +58,8 @@ nnoremap <leader>f :Rg<CR>
 " Theming
 " colorscheme gruberdarker
 
+"italic on comments
+highlight Comment cterm=italic gui=italic
 " Purple Line Numbers and Grey comments
 hi LineNr ctermfg=13 guifg=#85678f ctermbg=NONE guibg=NONE
 hi Comment ctermfg=59 guifg=#5C6370 
