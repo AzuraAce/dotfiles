@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
+# TODO add openbsd support
 case "$(printf "kill\nVPN\ndisplay\nzzz\nreboot\nshutdown" | dmenu -i)" in
 	kill) ps -u $USER -o pid,comm,%cpu,%mem | dmenu -i -l 10 -p Kill: | awk '{print $1}' | xargs -r kill ;;
     VPN) ~/scripts/statusbar/mullvad-vpn ;;
@@ -7,20 +8,29 @@ case "$(printf "kill\nVPN\ndisplay\nzzz\nreboot\nshutdown" | dmenu -i)" in
 	zzz) if command -v systemctl > /dev/null 2>&1
          then 
              systemctl suspend 
-         else 
+         elif command -v loginctl > /dev/null 2>&1
+         then
              loginctl suspend 
+         else 
+             zzz
          fi ;;
 	reboot) if command -v systemctl > /dev/null 2>&1
             then
                 systemctl reboot
-            else 
+            elif command -v loginctl > /dev/null 2>&1
+            then
                 loginctl reboot 
+            else
+                shutdown -r now
             fi ;;
 	shutdown) if command -v systemctl > /dev/null 2>&1
               then 
                   systemctl poweroff 
-              else 
+              elif command -v loginctl > /dev/null 2>&1
+              then
                   loginctl shutdown 
+              else 
+                  shutdown -p now
               fi ;;
 	*) exit 1 ;;
 esac
