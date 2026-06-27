@@ -65,18 +65,22 @@
 (setq mouse-wheel-flip-direction t)
 
 ;;; font
-(add-to-list 'default-frame-alist `(font . "Iosevka-14"))
-;; (let ((mono-spaced-font "Iosevka")
-;;       (proportionately-spaced-font "Sans"))
-;;   (set-face-attribute 'default nil :family mono-spaced-font :height 100)
-;;   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
-;;   (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0))
+(add-to-list 'default-frame-alist `(font . "JetBrains Mono-14"))
+; (let ((mono-spaced-font "Iosevka")
+;       (proportionately-spaced-font "Sans"))
+;   (set-face-attribute 'default nil :family mono-spaced-font :height 100)
+;   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
+;   (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0))
 
 ;;; theme
 (use-package gruber-darker-theme
   :ensure t
   :config
   (load-theme 'gruber-darker :no-confirm-loading))
+
+;; italics comments
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+(set-face-attribute 'font-lock-comment-delimiter-face nil :slant 'italic)
 
 ;;; Evil (vim bindings)
 ;; ;; download Evil
