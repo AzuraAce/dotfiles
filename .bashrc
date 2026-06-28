@@ -18,7 +18,9 @@ fi
 # Put your fun stuff here.
 eval "$(fzf --bash)"
 
-PROMPT_DIRTRIM=2
+source /usr/share/git/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+export PROMPT_DIRTRIM=2
 # PS1 theming 
 PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\]:\w$(__git_ps1 " [%s]") \$\[\033[00m\] '
 
