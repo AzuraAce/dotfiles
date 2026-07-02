@@ -3,20 +3,12 @@
 APP_NAME="brightness"
 STEP=5
 
-get_icon () {
-  if [ $1 -lt 50 ]; then
-    echo "brightness-low"
-  else
-    echo "brightness-high"
-  fi
-}
-
 case "$1" in
     up)
-        brightnessctl s "+${STEP}%"
+        light -A "+${STEP}%"
         ;;
     down)
-        brightnessctl s "${STEP}%-"
+        light -U "${STEP}%-"
         ;;
     *)
         echo "Usage: $0 [up|down]"
@@ -24,13 +16,13 @@ case "$1" in
         ;;
 esac
 
-max=$(brightnessctl m)
-curr=$(brightnessctl g)
+max=100
+curr=$(printf "%.0f" $(light))
 brightness=$(( (100 * curr) / max))
 icon=$(get_icon $brightness)
 
 notify-send -a "$APP_NAME" \
             -h string:x-canonical-private-synchronous:brightness \
             -h int:value:"$brightness" \
-            -i "xfpm-brightness-lcd" \
+            -i "brightness-display-symbolic" \
             ""
