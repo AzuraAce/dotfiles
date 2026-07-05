@@ -18,7 +18,7 @@ export CHROME_FLAGS="--force-device-scale-factor=1"
 #
 # .desktop files can be found in /usr/share/applications/
 # the BROWSER env is used by DWM by pressing MOD+w
-export BROWSER="firefox"
+export BROWSER="librewolf"
 
 # make scrolling in firefox smooth
 export MOZ_USE_XINPUT2=1
