@@ -6,7 +6,11 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 xrdb -merge ~/.Xresources
 
-gentoo-pipewire-launcher &
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    [ $NAME == "Gentoo" ] && gentoo-pipewire-launcher &
+fi
+
 picom --backend=glx --vsync &
 sxhkd &
 feh --bg-scale ~/wallpapers/nerv.webp &
