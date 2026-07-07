@@ -55,9 +55,6 @@ nnoremap <leader>p :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :Rg<CR>
 
-" Theming
-" colorscheme gruberdarker
-
 "italic on comments
 highlight Comment cterm=italic gui=italic
 " Purple Line Numbers and Grey comments
