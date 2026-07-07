@@ -1,8 +1,11 @@
 # Default programs:
 export EDITOR="vim"
 export TERMINAL="st"
-export TERMINAL_PROG="st"
-export TERM="st"
+export TERMINAL_PROG="st-256color"
+export TERM="st-256color"
+export ENV="~/.kshrc"
+
+export LANG=C.UTF-8
 
 # Scaling Settings
 export GDK_SCALE=1
