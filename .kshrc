@@ -1,3 +1,7 @@
+if [ -z "$TMUX" ]; then
+    exec tmux
+fi
+
 PS1="\033[32m[\u@\h\033[00m \033[36m\w\033[00m\033[32m]\033[00m$ "
 
 HISTFILE="$HOME/.ksh_history"
