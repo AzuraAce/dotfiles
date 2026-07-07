@@ -11,8 +11,7 @@ Xcursor.size: 42
 Xcursor.theme: Adwaita
 
 ! theme to use: default, macchiato, nord, gruvbox
-!#include "/home/oliver/themes/Xresources/gentoo"
-#include "/home/oliver/themes/Xresources/iterm"
+#include "/home/oliver/themes/Xresources/iterm-apple-system-colors.Xresources"
 
 #define GENTOO_PURPLE #54487A
 #define GENTOO_PURPLE_LIGHT #61538D
