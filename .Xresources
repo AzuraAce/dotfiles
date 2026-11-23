@@ -1,5 +1,6 @@
-! 2880x1800
+! 2880x1800 216
 Xft.dpi: 192
+! 1920x1200 144
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
@@ -11,24 +12,25 @@ Xcursor.size: 42
 Xcursor.theme: Adwaita
 
 ! theme to use: default, macchiato, nord, gruvbox
-#include "/home/oliver/themes/Xresources/gruber-darker"
+#include "/home/oliver/themes/Xresources/gruvbox-dark.xresources"
 
 #define GENTOO_PURPLE #54487A
 #define GENTOO_PURPLE_LIGHT #61538D
-#define FONT JetBrains Mono:size=14
+#define MONO_FONT SF Mono:size=14
+#define FONT SF Pro:size=14
 
 ! dwm and dmenu
 *.selbordercolor: GENTOO_PURPLE
 *.selbgcolor: GENTOO_PURPLE
 
-dwm.font: FONT
+dwm.font: MONO_FONT
 dwm.fontalt0: Symbols Nerd Font Mono:size=14
 dwm.borderpx: 8
 dwm.dmenufont: JetBrains Mono-14
 
-st.font: FONT
+st.font: MONO_FONT
 st.fontalt0: Symbols Nerd Font Mono:size=14
 
-dmenu.font: FONT
+dmenu.font: MONO_FONT
 
 slock.bgimage: /home/oliver/wallpapers/nyacat.png
