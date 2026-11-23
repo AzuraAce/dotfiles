@@ -5,6 +5,9 @@ super + Home
 super+w
     $BROWSER
 
+super+e
+    emacs
+
 super+d
     j4-dmenu-desktop -d "dmenu -i" -t st
 

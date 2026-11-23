@@ -14,7 +14,47 @@ get_icon () {
     echo "high"
   fi
 }
+# OpenBSD
+if [ $(uname -s) = "OpenBSD" ]; then
+case "$1" in
+  up)
+    #sndioctl output.level=+0.05
+    level=$(sndioctl | awk -F= '$1 == "output.level" { print $2; exit }')
+    volume=$(awk -v level="$level" 'BEGIN { printf "%d", level * 100 }')
+    ;;
+  down)
+    #sndioctl output.level=-0.05
+    level=$(sndioctl | awk -F= '$1 == "output.level" { print $2; exit }')
+    volume=$(awk -v level="$level" 'BEGIN { printf "%d", level * 100 }')
+    ;;
+  mute)
+    #sndioctl output.mute=\!
+    mute=$(sndioctl | awk -F= '$1 == "output.mute" { print $2; exit }')
+    if [ "$mute" = "1" ]; then
+        volume=0
+    else 
+        level=$(sndioctl | awk -F= '$1 == "output.level" { print $2; exit }')
+        volume=$(awk -v level="$level" 'BEGIN { printf "%d", level * 100 }')
+    fi
+    ;;
+  mute-mic)
+    sndioctl input.mute=\!
+    mute=$(sndioctl | awk -F= '$1 == "input.mute" { print $2; exit }')
+    if [ "$mute" = "1" ]; then
+        volume=0
+    else 
+        level=$(sndioctl | awk -F= '$1 == "input.level" { print $2; exit }')
+        volume=$(awk -v level="$level" 'BEGIN { printf "%d", level * 100 }')
+    fi
+    ;;
+  *)
+    echo "Usage: $0 [up|down|mute|mute-mic]"
+    exit 1
+    ;;
+esac
 
+# Linux (Pipewire)
+elif [ $(uname -s) = "Linux" ]; then
 case "$1" in
   up)
     wpctl set-volume @DEFAULT_AUDIO_SINK@ ${STEP}%+
@@ -39,7 +79,7 @@ case "$1" in
     else
       volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ \
                 | awk '{print int($2*100)}')
-    icon="audio-volume-$(get_icon $volume)-symbolic"
+      icon="audio-volume-$(get_icon $volume)-symbolic"
     fi
     ;;
   mute-mic)
@@ -60,6 +100,9 @@ case "$1" in
     exit 1
     ;;
 esac
+fi
+
+icon="audio-volume-$(get_icon $volume)-symbolic"
 
 notify-send -a "$APP_NAME" \
             -h string:x-canonical-private-synchronous:volume \

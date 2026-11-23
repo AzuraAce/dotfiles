@@ -7,6 +7,10 @@ export ENV="~/.kshrc"
 
 export LANG=C.UTF-8
 
+# fix header includes i.e #include <GL/gl.h>
+export CXXFLAGS="-I/usr/X11R6/include ${CXXFLAGS}"
+export CFLAGS="-I/usr/X11R6/include ${CFLAGS}"
+
 # Scaling Settings
 export GDK_SCALE=1
 export GDK_DPI_SCALE=1

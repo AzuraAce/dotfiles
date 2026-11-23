@@ -6,15 +6,11 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 xrdb -merge ~/.Xresources
 
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    [ $NAME == "Gentoo" ] && gentoo-pipewire-launcher &
-fi
-
 picom --backend=glx --vsync &
 sxhkd &
 feh --bg-scale ~/wallpapers/nerv.webp &
 slstatus &
 dunst &
+xidle -ne -program "/usr/sbin/zzz" & # top right sleep hot corner
 
 exec dwm

@@ -16,7 +16,7 @@ function choose_output {
 
 	if [ "$1" == "-a" ] ||  [ "$2" == "-a" ]
 	then
-		OUTPUTS=$(echo "$OUTPUTS" | grep --extended-regexp "connected\s(primary\s)?[0-9]+x[0-9]+") 
+		OUTPUTS=$(printf '%s\n' "$OUTPUTS" | grep -E 'connected[[:space:]](primary[[:space:]])?[0-9]+x[0-9]+') 
 		MESSAGE="Active outputs"
 	fi
 
@@ -38,6 +38,17 @@ function change_res {
 	if [ -n "$RES" ]
 	then
 		xrandr --output "$1" --mode "$RES"
+	fi
+}
+
+function change_rate {
+
+    RES=$(xrandr | awk '/'"$1"'/{f=1;next} f && /^[^ ]/{exit} f' | grep '\*' | awk '{print $1}')
+	RATE=$(xrandr | awk '/'"$1"'/{f=1;next} f && /^[^ ]/{exit} f' |  grep '\*' | grep -oE '[0-9]+\.[0-9]+' | dmenu -i -p "Choose refresh rate")
+
+	if [[ -n "$RES" && -n "$RATE" ]]
+	then
+		xrandr --output "$1" --mode "$RES" --rate "$RATE"
 	fi
 }
 
@@ -117,7 +128,7 @@ function rotate {
 
 
  
-CHOOSEN=$(echo -e "Connect monitor\nDisconnect external monitor\nRotate screen\nChange screen resolution" | dmenu -i -p "xrandr-menu")
+CHOOSEN=$(echo -e "Connect monitor\nDisconnect external monitor\nRotate screen\nChange screen resolution\nChange refresh rate" | dmenu -i -p "xrandr-menu")
 
 
 
@@ -170,6 +181,18 @@ case "$CHOOSEN" in
 		fi
 
 		change_res "$OUTPUT"
+		exit
+		;;
+
+    "Change refresh rate")
+		OUTPUT=$(choose_output -a)
+
+		if [ -z "$OUTPUT" ]
+		then
+		        exit
+		fi
+
+		change_rate "$OUTPUT"
 		exit
 		;;
 

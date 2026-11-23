@@ -20,9 +20,39 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
+;;; enable sticky scroll on programming modes
+(semantic-mode 1)
+(global-semantic-stickyfunc-mode 1)
+;;; Sticky Scroll (keep function definitions on top)
+(defun sticky-scroll ()
+  "Enable Sticky-Scroll."
+  (semantic-mode 1)
+  (semantic-stickyfunc-mode 1))
+
+;;; Clang stuff
+(use-package clang-format
+    :ensure t)
+(setq clang-format-style "file")
+
 ;;; AucTeX
 (use-package auctex
-    :ensure t)
+  :ensure t
+  :mode ("\\.tex\\'" . LaTeX-mode)
+  :config
+  (setq TeX-view-program-selection
+        '((output-pdf "Zathura"))
+        TeX-source-correlate-start-server t
+        font-latex-fontify-script nil)
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+;;; Version-Control (git)
+(use-package magit
+  :ensure t
+  :bind
+  (("C-x g" . magit-status)
+   ("C-c g l" . magit-log-current)
+   ("C-c g b" . magit-blame)))
 
 ;;; PDF Tools
 ;(use-package pdf-tools
@@ -31,13 +61,45 @@
 ;    (pdf-tools-install))
 
 ;;; only vertical buffers
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+;(setq split-height-threshold nil)
+;(setq split-width-threshold 0)
 
 ;;; delete selected text on insertion
 (use-package delsel
   :ensure nil ; no need to install it as it is built-in
   :hook (after-init . delete-selection-mode))
+
+;;; LLDB
+(global-set-key (kbd "C-c d") #'lldb)
+
+;;; CMake
+(use-package cmake-mode
+  :ensure t)
+;; compile
+(defun cmake-build ()
+  "Configure and build the current CMake project."
+  (interactive)
+  (let* ((root (or (locate-dominating-file default-directory
+                                           "CMakeLists.txt")
+                   (user-error "No CMakeLists.txt found")))
+         (build-type (completing-read
+                      "Build type: "
+                      '("Debug" "Release")
+                      nil t nil nil "Debug"))
+         (build-dir (expand-file-name "build" root))
+         (compile-db (expand-file-name "compile_commands.json" root))
+         (build-db (expand-file-name "compile_commands.json" build-dir))
+         (default-directory root)
+         (command
+          (format
+           "cmake -S %s -B %s -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=%s && ln -sf %s %s && cmake --build %s"
+           (shell-quote-argument root)
+           (shell-quote-argument build-dir)
+           (shell-quote-argument build-type)
+           (shell-quote-argument build-db)
+           (shell-quote-argument compile-db)
+           (shell-quote-argument build-dir))))
+    (compile command)))
 
 ;;; look of emacs
 ;; disable menu and tool bar
@@ -45,6 +107,9 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (show-paren-mode 1)
+(electric-pair-mode 1)
+
+(setq-default mode-line-format nil)
 ;; enable relative line numbers
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
@@ -53,7 +118,8 @@
               make-backup-files nil
               tab-width 4
               indent-tabs-mode nil
-              compilation-scroll-output t
+              compilation-scroll-output 'first-error
+              compilation-always-kill t
               visible-bell t)
 
 ;; disable word wrapping
@@ -61,122 +127,98 @@
 
 ;;; mouse support
 (xterm-mouse-mode 1)
-(setq mouse-wheel-tilt-scroll t)
-(setq mouse-wheel-flip-direction t)
+(setq mouse-wheel-tilt-scroll t
+      mouse-wheel-flip-direction t)
 
 ;;; font
-(add-to-list 'default-frame-alist `(font . "JetBrains Mono-14"))
-; (let ((mono-spaced-font "Iosevka")
-;       (proportionately-spaced-font "Sans"))
-;   (set-face-attribute 'default nil :family mono-spaced-font :height 100)
-;   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
-;   (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0))
+(add-to-list 'default-frame-alist `(font . "SF Mono-14"))
 
 ;;; theme
-(use-package gruber-darker-theme
+(use-package doom-themes
   :ensure t
   :config
-  (load-theme 'gruber-darker :no-confirm-loading))
+  ;(load-theme 'doom-xcode t))
+  (load-theme 'doom-gruvbox t))
+
+;(use-package gruber-darker-theme
+;  :ensure t
+;  :config
+;  (load-theme 'gruber-darker :no-confirm-loading))
 
 ;; italics comments
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-comment-delimiter-face nil :slant 'italic)
 
-;;; Evil (vim bindings)
-;; ;; download Evil
-;; (unless (package-installed-p 'evil)
-;;   (package-install 'evil))
-;; ;; enable Evil
-;; (require 'evil)
-;; (evil-mode 1)
-
 ;;; Move Text
 (use-package move-text
-    :ensure t)
-(global-set-key (kbd "M-p") 'move-text-up)
-(global-set-key (kbd "M-n") 'move-text-down)
-
-;;; Major Modes
-;; c-mode
-(setq-default c-basic-offset 4
-              c-default-style '((java-mode . "java")
-                                (awk-mode . "awk")
-                                (other . "bsd")))
-(add-hook 'c-mode-hook (lambda ()
-                         (interactive)
-                         (c-toggle-comment-style -1)))
-;; LaTeX
-(setq TeX-view-program-selection '((output-pdf "Zathura"))
-      TeX-source-correlate-start-server t)
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-(setq font-latex-fontify-script nil)
+  :ensure t
+  :bind (("M-p" . move-text-up)
+         ("M-n" . move-text-down)))
 
 ;;; configure minibuffer
-(ido-mode)
-(ido-everywhere)
+;(ido-mode)
+;(ido-everywhere)
+;
+;(use-package ido-completing-read+
+;    :ensure t
+;    :hook (after-init . ido-ubiquitous-mode))
 
-(use-package ido-completing-read+
-    :ensure t
-    :hook (after-init . ido-ubiquitous-mode))
+;;; vertico (alternative to ido)
+ (use-package vertico
+   :ensure t
+   :init
+   (vertico-mode 1))
 
-;; ivy (alternative to ido)
-;(use-package ivy
-;    :ensure t)
-;    :hook (after-init . ivy-mode)
-
-;; nice list of M-x options
+;;; nice list of M-x options
 ;(use-package amx
 ;    :ensure t
 ;    :hook (after-init . amx-mode))
 
-;; smex (alternative to amx)
-(use-package smex
-    :ensure t
-    :init 
-    (smex-initialize)
-    (global-set-key (kbd "M-x") 'smex)
-    (global-set-key (kbd "M-X") 'smex-major-mode-commands))
+;;; smex (alternative to amx)
+;(use-package smex
+;    :ensure t
+;    :init 
+;    (smex-initialize)
+;    (global-set-key (kbd "M-x") 'smex)
+;    (global-set-key (kbd "M-X") 'smex-major-mode-commands))
 
-;; vertico (alternative to ido)
-; (use-package vertico
-;   :ensure t
-;   :init
-;   (vertico-mode)
-;   (vertico-flat-mode))
-
-;; consult better isearch
+;;; consult better isearch
 ; (use-package consult
 ;   :ensure t
 ;   :bind (("M-s r" . consult-ripgrep)))
 
-;; command annotations
-;(use-package marginalia
-;  :ensure t
-;  :hook (after-init . marginalia-mode))
+;;; command annotations
+(use-package marginalia
+  :init
+  (marginalia-mode 1))
 
-;; better command search
+
+;;; better command search
 (use-package orderless
   :ensure t
   :config
-  (setq completion-styles '(orderless basic))
-  (setq completion-category-defaults nil)
-  (setq completion-category-overrides nil))
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
 
 (use-package savehist
   :init
   (savehist-mode))
 
-;; LSP client
+;;; LSP client
 (use-package eglot
   :hook ((python-mode . eglot-ensure)
          (rust-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (c-mode . eglot-ensure))
   :config
+  (add-to-list 'eglot-server-programs
+              '((c-mode c++-mode c-ts-mode c++-ts-mode)
+                . ("clangd")))
   ;; Disable inlay hints by default
   (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
-  (setq eglot-stay-out-of '(flymake))
-  (setq eglot-ignored-server-capabilities '(:inlayHintProvider)))
+  (setq eglot-stay-out-of '(flymake)
+        eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; completion
 ;(use-package corfu
@@ -201,14 +243,15 @@
   :ensure nil
   :commands (dired)
   :config
-  (setq dired-recursive-copies 'always)
-  (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$"))
-  (setq-default dired-dwim-target t)
-  (setq dired-listing-switches "-alh")
-  (setq dired-mouse-drag-files t))
+  (require 'dired-x)
+  (setq dired-recursive-copies 'always
+        dired-recursive-deletes 'always
+        delete-by-moving-to-trash t
+        dired-omit-files
+        (concat dired-omit-files "\\|^\\..+$")
+        dired-dwim-target t
+        dired-listing-switches "-alh"
+        dired-mouse-drag-files t))
 
 (use-package dired-subtree
   :ensure t
@@ -226,10 +269,10 @@
   :ensure t
   :commands (trashed)
   :config
-  (setq trashed-action-confirmer 'y-or-n-p)
-  (setq trashed-use-header-line t)
-  (setq trashed-sort-key '("Date deleted" . t))
-  (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
+  (setq trashed-action-confirmer 'y-or-n-p
+        trashed-use-header-line t
+        trashed-sort-key '("Date deleted" . t)
+        trashed-date-format "%Y-%m-%d %H:%M:%S"))
 
 ;;; move between split windows with SHIFT-<arrow key>
 (windmove-default-keybindings)

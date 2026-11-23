@@ -6,7 +6,7 @@ set database sqlite
 set selection-clipboard "clipboard"
 
 set synctex true
-set synctex-editor-command "gvim +%{line} %{input}"
+set synctex-editor-command "vim +%{line} %{input}"
 
 # Open document in fit-width mode by default
 set adjust-open "best-fit"
@@ -61,14 +61,14 @@ set render-loading              "true"
 set render-loading-bg           "#2E3440"
 set render-loading-fg           "#434C5E"
 
-set font                        "SF Pro Text"
+set font                        "JetBrains Mono"
 set guioptions                  none
 #
 # Recolor mode settings
 #
 set recolor-lightcolor          "#2E3440"
 set recolor-darkcolor           "#ECEFF4"
-set recolor                     "true"
+set recolor                     "false"
 set recolor-keephue             "true"
 
 set render-loading "false"
