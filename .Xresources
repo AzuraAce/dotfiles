@@ -12,12 +12,12 @@ Xcursor.size: 42
 Xcursor.theme: Adwaita
 
 ! theme to use: default, macchiato, nord, gruvbox
-#include "/home/oliver/themes/Xresources/gruvbox-dark.xresources"
+#include "/home/oliver/themes/Xresources/base16"
 
 #define GENTOO_PURPLE #54487A
 #define GENTOO_PURPLE_LIGHT #61538D
-#define MONO_FONT SF Mono:size=14
-#define FONT SF Pro:size=14
+#define MONO_FONT IBM Plex Mono:size=14
+#define FONT IBM Plex Sans:size=14
 
 ! dwm and dmenu
 *.selbordercolor: GENTOO_PURPLE
