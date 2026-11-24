@@ -1,12 +1,12 @@
-! 2880x1800 216
+! 2880x1800 216 or 192
 Xft.dpi: 192
-! 1920x1200 144
+! 1920x1200 144 or 96
 Xft.autohint: 0
-Xft.lcdfilter:  lcddefault
-Xft.hintstyle:  hintfull
+Xft.lcdfilter: lcdnone
+Xft.hintstyle: hintslight
 Xft.hinting: 1
 Xft.antialias: 1
-Xft.rgba: rgb
+Xft.rgba: none
 
 Xcursor.size: 42
 Xcursor.theme: Adwaita
