@@ -6,7 +6,8 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 xrdb -merge ~/.Xresources
 
-picom --backend=glx --vsync &
+#picom --backend=glx --vsync &
+xcompmgr &
 sxhkd &
 feh --bg-scale ~/wallpapers/nerv.webp &
 slstatus &
