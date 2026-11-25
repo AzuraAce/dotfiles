@@ -131,19 +131,19 @@
       mouse-wheel-flip-direction t)
 
 ;;; font
-(add-to-list 'default-frame-alist `(font . "SF Mono-14"))
+(add-to-list 'default-frame-alist `(font . "IBM Plex Mono-14"))
 
 ;;; theme
-(use-package doom-themes
-  :ensure t
-  :config
-  ;(load-theme 'doom-xcode t))
-  (load-theme 'doom-gruvbox t))
-
-;(use-package gruber-darker-theme
+;(use-package doom-themes
 ;  :ensure t
 ;  :config
-;  (load-theme 'gruber-darker :no-confirm-loading))
+;  ;(load-theme 'doom-xcode t))
+;  (load-theme 'doom-gruvbox t))
+
+(use-package gruber-darker-theme
+  :ensure t
+  :config
+  (load-theme 'gruber-darker :no-confirm-loading))
 
 ;; italics comments
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
