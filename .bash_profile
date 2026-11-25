@@ -6,6 +6,9 @@ if [[ -f ~/.bashrc ]] ; then
 	. ~/.bashrc
 fi
 
-if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-	exec startx
-fi
+## autostart X11 on login
+#if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+#	exec startx
+#fi
+
+. "$HOME/.cargo/env"

@@ -14,12 +14,12 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-if [ -z "$TMUX" ]; then
+if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
     exec tmux
 fi
 
 # Put your fun stuff here.
-eval "$(fzf --bash)"
+#eval "$(fzf --bash)"
 
 # Completions
 . /usr/share/bash-completion/bash_completion
@@ -51,9 +51,9 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export PROMPT_DIRTRIM=2
 
 if ! (env | grep -Fq 'DISTROBOX'); then
-    source /usr/share/git/git-prompt.sh
+    #source /usr/share/git/git-prompt.sh
     # PS1 theming 
-    PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w$(__git_ps1 " [%s]") \$\[\033[00m\] '
+    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 " [%s]")\[\033[00m\]\$ '
 else
     # inside distrobox container
     source /opt/ros/humble/setup.bash
@@ -61,3 +61,4 @@ else
     export QT_ENABLE_HIGHDPI_SCALING=0
     PS1='(distrobox)\n\[\033[01;32m\]\u@\h\[\033[01;34m\] \w$(__git_ps1 " [%s]") \$\[\033[00m\] '
 fi
+. "$HOME/.cargo/env"
