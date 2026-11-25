@@ -25,7 +25,7 @@ export CHROME_FLAGS="--force-device-scale-factor=1"
 #
 # .desktop files can be found in /usr/share/applications/
 # the BROWSER env is used by DWM by pressing MOD+w
-export BROWSER="librewolf"
+export BROWSER="ladybird"
 
 # make scrolling in firefox smooth
 export MOZ_USE_XINPUT2=1
@@ -40,3 +40,4 @@ export XDG_DESKTOP_DIR="$HOME"
 # export XDG_DOWNLOAD_DIR="$HOME/downloads"
 # export XDG_PICTURES_DIR="$HOME/pictures"
 # export XDG_VIDEOS_DIR="$HOME/videos"
+. "$HOME/.cargo/env"
