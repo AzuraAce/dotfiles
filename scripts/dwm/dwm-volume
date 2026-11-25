@@ -108,4 +108,4 @@ notify-send -a "$APP_NAME" \
             -h string:x-canonical-private-synchronous:volume \
             -h int:value:"$volume" \
             -i "$icon" \
-            ""
+            " "

@@ -2,32 +2,42 @@
 
 APP_NAME="brightness"
 STEP=5
-
-# Linux
-#case "$1" in
-#    up)
-#        light -A "+${STEP}%"
-#        ;;
-#    down)
-#        light -U "${STEP}%-"
-#        ;;
-#    *)
-#        echo "Usage: $0 [up|down]"
-#        exit 1
-#        ;;
-#esac
-#
-#max=100
-#curr=$(printf "%.0f" $(light))
-#brightness=$(( (100 * curr) / max))
-
-# OpenBSD
 max=100
-curr=$(printf "%.0f" $(xbacklight))
-brightness=$(( (100 * curr) / max))
+curr=0
+brightness=0
+  
+unamestr=$(uname)
+
+case "$unamestr" in
+    Linux)
+        # Linux
+        case "$1" in
+            up)
+                light -A "+${STEP}%"
+                ;;
+            down)
+                light -U "${STEP}%-"
+                ;;
+            *)
+                echo "Usage: $0 [up|down]"
+                exit 1
+                ;;
+        esac
+        max=100
+        curr=$(printf "%.0f" $(light))
+        brightness=$(( (100 * curr) / max))
+        ;;
+
+    OpenBSD)
+        # OpenBSD
+        max=100
+        curr=$(printf "%.0f" $(xbacklight))
+        brightness=$(( (100 * curr) / max))
+        ;;
+esac
 
 notify-send -a "$APP_NAME" \
             -h string:x-canonical-private-synchronous:brightness \
             -h int:value:"$brightness" \
             -i "brightness-display-symbolic" \
-            ""
+            " "

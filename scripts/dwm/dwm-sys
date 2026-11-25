@@ -25,7 +25,7 @@ case "$(printf "kill\nVPN\ndisplay\nzzz\nreboot\nshutdown" | dmenu -i)" in
             fi ;;
 	shutdown) if command -v systemctl > /dev/null 2>&1
               then 
-                  systemctl shutdown 
+                  systemctl poweroff 
               elif command -v loginctl > /dev/null 2>&1
               then
                   loginctl poweroff
