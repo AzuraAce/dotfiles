@@ -14,7 +14,7 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
+if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
     exec tmux
 fi
 
@@ -61,4 +61,3 @@ else
     export QT_ENABLE_HIGHDPI_SCALING=0
     PS1='(distrobox)\n\[\033[01;32m\]\u@\h\[\033[01;34m\] \w$(__git_ps1 " [%s]") \$\[\033[00m\] '
 fi
-. "$HOME/.cargo/env"
